@@ -3,8 +3,10 @@
 
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
+import { postgres } from "../core/connection";
 
-class user extends Model { }
+
+export class user extends Model { }
 class photos extends Model { }
 class comments extends Model { }
 class likes extends Model { }
@@ -23,7 +25,7 @@ user.init({
     }
 },
 {
-    sequelize,
+    sequelize: postgres,
     tableName: 'users'
 });
 
@@ -93,9 +95,7 @@ user.init({
 //     tableName: 'likes'
 // });
 
-user.sync({ force: true });
+// user.sync({ force: true });
 // comments.sync({ force: true });     
 // photos.sync({ force:  true });
 // likes.sync({ force: true });
-
-export { user };

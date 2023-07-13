@@ -29,13 +29,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
 const connection_1 = require("./core/connection");
-const user_model_1 = require("./modules/user.model");
+const models = __importStar(require("./modules/index"));
 const app = (0, express_1.default)();
 dotenv.config();
 const port = process.env.PORT;
 (0, connection_1.dbconnection)();
 // app.use('/auth', UserRouter);
-user_model_1.user.sync({ force: true }).then(() => {
+models.user.sync({ force: true }).then(() => {
     console.log("Created");
     return Promise.resolve();
 }).catch((e) => { console.log(e); });

@@ -1,23 +1,22 @@
-const Sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
 import dotenv from 'dotenv';
 
 dotenv.config();
+import { Dialect, Sequelize } from 'sequelize';
 
-const sqlize = new Sequelize(process.env.dbName, process.env.appName, process.env.PASSWORD, {
-    hostName: process.env.hostName,
-    dialect: process.env.dialect
+let dialect: Dialect = <Dialect>process.env.dialect
+export let postgres = new Sequelize(process.env.dbName, process.env.appName, process.env.PASSWORD, {
+    host: process.env.hostName,
+    dialect: dialect,
+
 });
 
-const dbconnection = async () => {
+export const dbconnection = async () => {
     try {
-        const msgonconnect = await sqlize.authenticate;
-        console.log(await msgonconnect());
+        const msgonconnect = await postgres.authenticate();
         console.log('Connection has been established successfully.');
     }
     catch (err) {
         console.error('Unable to connect to the database:', err);
     }
 }
-
-
-export {sqlize,dbconnection};

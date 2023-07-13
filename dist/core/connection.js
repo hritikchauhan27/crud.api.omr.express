@@ -12,19 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dbconnection = exports.sqlize = void 0;
-const Sequelize = require('sequelize');
+exports.dbconnection = exports.postgres = void 0;
+// const Sequelize = require('sequelize');
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const sqlize = new Sequelize(process.env.dbName, process.env.appName, process.env.PASSWORD, {
-    hostName: process.env.hostName,
-    dialect: process.env.dialect
+const sequelize_1 = require("sequelize");
+let dialect = process.env.dialect;
+exports.postgres = new sequelize_1.Sequelize(process.env.dbName, process.env.appName, process.env.PASSWORD, {
+    host: process.env.hostName,
+    dialect: dialect,
 });
-exports.sqlize = sqlize;
 const dbconnection = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const msgonconnect = yield sqlize.authenticate;
-        console.log(yield msgonconnect());
+        const msgonconnect = yield exports.postgres.authenticate();
         console.log('Connection has been established successfully.');
     }
     catch (err) {

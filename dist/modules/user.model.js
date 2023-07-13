@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.user = void 0;
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('sqlite::memory:');
+const connection_1 = require("../core/connection");
 class user extends Model {
 }
 exports.user = user;
@@ -14,6 +15,7 @@ class comments extends Model {
 }
 class likes extends Model {
 }
+console.log("User model");
 user.init({
     username: {
         type: DataTypes.STRING
@@ -27,7 +29,7 @@ user.init({
         default: Date.now()
     }
 }, {
-    sequelize,
+    sequelize: connection_1.postgres,
     tableName: 'users'
 });
 // photos.init({
@@ -93,5 +95,8 @@ user.init({
 //     sequelize,
 //     tableName: 'likes'
 // });
-user.sync({ force: true });
+// user.sync({ force: true });
+// comments.sync({ force: true });     
+// photos.sync({ force:  true });
+// likes.sync({ force: true });
 //# sourceMappingURL=user.model.js.map

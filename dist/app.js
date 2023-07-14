@@ -28,17 +28,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv = __importStar(require("dotenv"));
+const user_route_1 = __importDefault(require("./route/user.route"));
 const connection_1 = require("./core/connection");
-const user_model_1 = require("./modules/user.model");
 const app = (0, express_1.default)();
 dotenv.config();
+app.use(express_1.default.json());
 const port = process.env.PORT;
 (0, connection_1.dbconnection)();
-// app.use('/auth', UserRouter);
-user_model_1.user.sync({ force: true }).then(() => {
-    console.log("Created");
-    return Promise.resolve();
-}).catch((e) => { console.log(e); });
+app.use('/', user_route_1.default);
 app.listen(port, () => {
     console.log(`listning at http://locahost:${port}`);
 });

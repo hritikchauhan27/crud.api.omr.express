@@ -12,29 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dbconnection = exports.sqlize = void 0;
-const Sequelize = require('sequelize');
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const sqlize = new Sequelize(process.env.dbName, process.env.appName, process.env.PASSWORD, {
-    hostName: process.env.hostName,
-    dialect: process.env.dialect,
-    pool: {
-        max: 10,
-        min: 0,
-        aquire: 3000,
-        idle: 10000
-    }
-});
-exports.sqlize = sqlize;
-const dbconnection = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.user_SignUp = void 0;
+const user_model_1 = require("../modules/user.model");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const SECRET_KEY = process.env.SECRET_KEY;
+const user_SignUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const details = req.body;
+    console.log(req.body);
     try {
-        const msgonconnect = yield sqlize.authenticate;
-        console.log('Connection has been established successfully.');
+        const user = yield user_model_1.User.create(details);
+        const token = jsonwebtoken_1.default.sign({ id: user.username }, SECRET_KEY);
+        res.status(200).json({ status: "SignUp Success", token });
     }
     catch (err) {
-        console.error('Unable to connect to the database:', err);
+        res.status(500).json({ status: "server error" });
     }
 });
-exports.dbconnection = dbconnection;
-//# sourceMappingURL=connection.js.map
+exports.user_SignUp = user_SignUp;
+//# sourceMappingURL=singup.controller.js.map

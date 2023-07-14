@@ -1,3 +1,5 @@
+// add a new post api function
+
 import { Photos } from "../modules/user.model";
 
 const Post_photo = async(req:any,res:any) => {

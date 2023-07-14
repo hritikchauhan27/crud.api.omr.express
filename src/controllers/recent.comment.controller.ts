@@ -1,3 +1,5 @@
+// latest 3 comment api function
+
 import { Comments, Photos } from "../modules/user.model";
 
 const recent_comments = async(req:any,res:any) => {

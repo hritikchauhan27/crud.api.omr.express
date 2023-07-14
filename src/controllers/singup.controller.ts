@@ -1,3 +1,5 @@
+// user sign-up and generating token api function
+
 import { User } from "../modules/user.model";
 import jwt from 'jsonwebtoken';
 
@@ -8,7 +10,7 @@ const user_SignUp = async (req: any, res: any) => {
     console.log(req.body);
     try{
         const user = await User.create(details);
-        const token = jwt.sign({id:user.username},SECRET_KEY);
+        const token = jwt.sign({id:user.username},SECRET_KEY); //generating token to validate that during login
         res.status(200).json({status:"SignUp Success",token});
     }
     catch(err){

@@ -1,10 +1,12 @@
+//usre login authenticate api function
+
 import { User } from "../modules/user.model";
 import jwt from 'jsonwebtoken';
 
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const loginUser = async(req: any, res: any)=> {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization; //validating user through token that was generating during sign-up
     console.log(token);
     try{
     if(!token){

@@ -1,3 +1,5 @@
+//counting like api function an user adding comment api function
+
 import { Comments, Likes } from "../modules/user.model";
 
 const createComment = async(req:any, res:any) => {

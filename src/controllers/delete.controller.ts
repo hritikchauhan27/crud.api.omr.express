@@ -1,3 +1,5 @@
+// deleting comment from db api function
+
 import { Comments } from '../modules/user.model';
 
 const delete_comment = async(req:any,res:any) => {

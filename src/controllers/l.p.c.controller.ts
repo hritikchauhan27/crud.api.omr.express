@@ -1,5 +1,6 @@
-import { Comments, Likes } from "../modules/user.model";
+// like on each comments on a post api function
 
+import { Comments, Likes } from "../modules/user.model";
 const likes_on_comments = async (req: any, res: any) => {
     try {
         let comment_id: Number = 0;
